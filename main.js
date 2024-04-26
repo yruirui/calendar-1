@@ -1,3 +1,20 @@
+
+let currentTime = new Date()
+render(currentTime)
+
+g('#prevMonth').onclick=()=>{
+    render(new Date(currentTime-86400*1000*30))
+}
+g('#nextMonth').onclick=()=>{
+    render(new Date(currentTime-0+86400*1000*30))
+}
+//辅助函数
+function g(selector){
+    return document.querySelector(selector)
+}
+function gs(selector){
+    return document.querySelectorAll(selector)
+}
 function render(time){
     const year=time.getFullYear()
     const month=time.getMonth()+1
@@ -7,7 +24,7 @@ function render(time){
     //月份信息展示
     generateDay()
     //将时间变成当前修改过的时间
-    now=time
+    currentTime=time
     //初始化
 function initTime(){
     const time=g('#time')
@@ -22,7 +39,10 @@ function generateDay(){
     const yuemoxingqiji=yuemo.getDay()
     const 这个月有几天=yuemojihao
     const lilist=[]
+    const now = new Date()
     const days=g('#days')
+    let selectorLi
+
     days.innerHTML=''
     //这个月往前铺几天
     for(i=1;i<yuechuxingqiji;i++){
@@ -32,9 +52,19 @@ function generateDay(){
        days.prepend(li)
      }
     //这个月有几天
-     for(let i=1;i<这个月有几天;i++){
+     for(let i=1;i<=这个月有几天;i++){
         const li=document.createElement('li')
+        if(i===now.getDate() && month===now.getMonth()+1 && year===now.getFullYear()){
+            li.classList.add('canlendar-days-today')
+        }
         li.textContent=i
+        li.onclick=()=>{
+            if(selectorLi){
+                selectorLi.classList.remove('canlendar-days-selector')
+            }
+            li.classList.add('canlendar-days-selector')
+            selectorLi=li
+        }
        days.append(li)
      }
      //月末铺垫
@@ -46,21 +76,5 @@ function generateDay(){
        days.append(li)
      }
 }
-}
-let now = new Date()
-render(now)
-
-g('#prevMonth').onclick=()=>{
-    render(new Date(now-86400*1000*30))
-}
-g('#nextMonth').onclick=()=>{
-    render(new Date(now-0+86400*1000*30))
-}
-//辅助函数
-function g(selector){
-    return document.querySelector(selector)
-}
-function gs(selector){
-    return document.querySelectorAll(selector)
 }
  

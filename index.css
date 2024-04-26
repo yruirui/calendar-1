@@ -32,12 +32,18 @@
     display: flex;
     flex-wrap: wrap;
 }
-.canlendar-days-today{}
+.canlendar-days-today{
+    background-color: yellow;
+    border-radius: 8px;
+}
 .canlendar-days>li{
     width: 14.2857%;
     text-align: center;
     height: 40px;
     line-height: 40px;
+}
+.canlendar-days-selector{
+    outline: 1px solid yellow;
 }
 .canlendar-actions{
     display: flex;
