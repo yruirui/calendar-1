@@ -3,10 +3,16 @@ let currentTime = new Date()
 render(currentTime)
 
 g('#prevMonth').onclick=()=>{
-    render(new Date(currentTime-86400*1000*30))
+    const yuechu=new Date(currentTime.getFullYear(),currentTime.getMonth(),1)
+    render(new Date(yuechu-86400*1000))
 }
 g('#nextMonth').onclick=()=>{
-    render(new Date(currentTime-0+86400*1000*30))
+    const xiayuechu=new Date(currentTime.getFullYear(),currentTime.getMonth()+1,1)
+    render(new Date(xiayuechu))
+}
+g('#toDay').onclick=()=>{
+    console.log('today is click')
+    render(new Date())
 }
 //辅助函数
 function g(selector){
@@ -44,12 +50,14 @@ function generateDay(){
     let selectorLi
 
     days.innerHTML=''
+    let n=0
     //这个月往前铺几天
-    for(i=1;i<yuechuxingqiji;i++){
+    for(let i=1;i<yuechuxingqiji;i++){
         const li=document.createElement('li')
         const d=new Date(yuechu-86400*1000*i)
         li.textContent=d.getDate()
        days.prepend(li)
+       n+=1
      }
     //这个月有几天
      for(let i=1;i<=这个月有几天;i++){
@@ -66,14 +74,17 @@ function generateDay(){
             selectorLi=li
         }
        days.append(li)
+       n+=1
      }
      //月末铺垫
-     for(let i=yuemoxingqiji;i<=7;i++){
-        const dalta=i-yuemoxingqiji
+     let q=yuemoxingqiji
+     for(let j=0;j<42-n;j++){
+        const dalta=q-yuemoxingqiji
         const li=document.createElement('li')
         const d=new Date(yuechu-0+86400*1000*dalta)
         li.textContent=d.getDate()
        days.append(li)
+       q++
      }
 }
 }
