@@ -72,6 +72,24 @@ function generateDay(){
             }
             li.classList.add('canlendar-days-selector')
             selectorLi=li
+            if(events){
+                const fragment=document.createDocumentFragment()
+                events.map(event=>{
+                    const div=document.createElement('div')
+                    div.textContent=event
+                    fragment.append(div)
+                })
+                g('#events').innerHTML=''
+                g('#events').append(fragment)
+            }else{
+                g('#events').innerHTML='无'
+            }
+            
+        }
+        const key=`${year}-${month}-${i}`
+        const events=window.data[key]
+        if(events){
+            li.classList.add('canlendar-days-hasEvents')
         }
        days.append(li)
        n+=1
