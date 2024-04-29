@@ -56,6 +56,7 @@ function generateDay(){
         const li=document.createElement('li')
         const d=new Date(yuechu-86400*1000*i)
         li.textContent=d.getDate()
+        li.classList.add('disableLi')
        days.prepend(li)
        n+=1
      }
@@ -67,6 +68,8 @@ function generateDay(){
         }
         li.textContent=i
         li.onclick=()=>{
+            const clickDay=`${year}-${month}-${i}`
+            g('#days-arrangement').innerHTML=clickDay
             if(selectorLi){
                 selectorLi.classList.remove('canlendar-days-selector')
             }
@@ -76,15 +79,18 @@ function generateDay(){
                 const fragment=document.createDocumentFragment()
                 events.map(event=>{
                     const div=document.createElement('div')
+                    div.classList.add('events-item')
                     div.textContent=event
                     fragment.append(div)
                 })
                 g('#events').innerHTML=''
                 g('#events').append(fragment)
+
+                g('#days-arrangement').innerHTML=key+' 安排计划'
             }else{
                 g('#events').innerHTML='无'
             }
-            
+        
         }
         const key=`${year}-${month}-${i}`
         const events=window.data[key]
@@ -101,6 +107,7 @@ function generateDay(){
         const li=document.createElement('li')
         const d=new Date(yuechu-0+86400*1000*dalta)
         li.textContent=d.getDate()
+        li.classList.add('disableLi')
        days.append(li)
        q++
      }
